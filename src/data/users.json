@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "fname": "Eli",
+        "lname": "Shani",
+        "email": "eli@shani.com",
+        "pwd": "123"
+    },
+    {
+        "id": 1,
+        "fname": "Jhon",
+        "lname": "Shani",
+        "email": "jhon@shani.com",
+        "pwd": "123"
+    }
+]
