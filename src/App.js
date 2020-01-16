@@ -15,6 +15,21 @@ class App extends React.Component {
       activeUser: null,
       allUsers: jsonUsers
     }
+
+    this.handleLogout = this.handleLogout.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin(user){
+    this.setState({
+      activeUser: user
+    });
+  }
+
+  handleLogout(){
+    this.setState({
+      activeUser: null
+    });
   }
 
   render() {
@@ -24,13 +39,13 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route exact path="/">
-            <HomePage activeUser={activeUser} />
+            <HomePage activeUser={activeUser} handleLogout={this.handleLogout} />
           </Route>
           <Route exact path="/login">
-            <LoginPage allUsers={allUsers}/>
+            <LoginPage allUsers={allUsers} handleLogin={this.handleLogin}/>
           </Route>
           <Route exact path="/docs">
-            <DocsPage />
+            <DocsPage activeUser={activeUser} handleLogout={this.handleLogout} />
           </Route>
         </Switch>
       </Router>
