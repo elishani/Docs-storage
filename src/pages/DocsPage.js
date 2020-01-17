@@ -2,6 +2,9 @@ import React from 'react';
 import { Container } from 'react-bootstrap'
 import DocsNavbar from '../components/DocsNavbar'
 import { Redirect } from 'react-router-dom';
+import './DocsPage.css'
+
+
 
 
 class DocsPage extends React.Component {
@@ -15,11 +18,21 @@ class DocsPage extends React.Component {
     if (!activeUser) {
       return <Redirect to="/" />
     }
+    
     return (
+      <div>
+      <DocsNavbar activeUser={activeUser} handleLogout={handleLogout} />
       <Container>
-        <h1> Home Page user</h1>
-        <h1>{activeUser.fname}'s Docs</h1>
+          <div className="docses-header">
+              <h1>{activeUser.fname}'s Documents storage</h1>
+          </div>
+         
+
       </Container>
+
+      
+
+  </div>
     );
   }
 }

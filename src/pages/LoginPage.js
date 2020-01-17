@@ -2,6 +2,8 @@ import React from 'react';
 import './LoginPage.css';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import Parse from 'parse';
+import UserModel from '../model/UserModel'
 
 class LoginPage extends React.Component {
 
@@ -30,20 +32,25 @@ class LoginPage extends React.Component {
     }
 
     login() {
-        const { allUsers, handleLogin } = this.props;
-        let { email, pwd } = this.state;
+        const { handleLogin } = this.props;
+        const { email, pwd } = this.state;
 
-        const newActiveUser = allUsers.find(user => user.email.toLowerCase() === email.toLowerCase() && user.pwd === pwd);
-        if (newActiveUser) {
-            handleLogin(newActiveUser);
+        Parse.User.logIn(email, pwd).then(parseUser => {
+            const user = new UserModel(parseUser);
+            console.log('Logged in user', user);
+
+            handleLogin(user);
+
             this.setState({
                 redirectToDocsPage: true
             });
-        } else {
+
+        }).catch(error => {
+            console.error('Error while logging in user', error);
             this.setState({
                 showInvalidLoginError: true
             });
-        }
+        })
     }
 
     render() {
@@ -57,7 +64,6 @@ class LoginPage extends React.Component {
        
         return (
             <div>
-                <h1>LoginPage</h1>
                 <div className="p-login">
                     <div className="main">
                         <h1>Welcome to </h1>
@@ -65,13 +71,15 @@ class LoginPage extends React.Component {
                         <p>or <Link to="/signup">Create a new account</Link></p>
                         {errorAlert}
                         <Form>
-                            <Form.Group controlId="frombsicaEmail">
+                            <Form.Group controlId="formBsicaEmail">
                                 <Form.Label>Email adderess</Form.Label>
-                                <Form.Control value={email} name="email" type="email" placeholder="Enter Email" onChange={this.handleInputChange} />
+                                <Form.Control name="email" value={email}
+                                    type="email" placeholder="Enter Email" onChange={this.handleInputChange} />
                             </Form.Group>
-                            <Form.Group controlId="frombsicaPassword">
+                            <Form.Group controlId="formBsicaPassword">
                                 <Form.Label>Pssword</Form.Label>
-                                <Form.Control value={pwd} name="pwd" type="Password" placeholder="Password" onChange={this.handleInputChange} />
+                                <Form.Control name="pwd"  value={pwd}
+                                    type="Password" placeholder="Password" onChange={this.handleInputChange} />
                             </Form.Group>
                             <Button vriant="success" type="button" block onClick={this.login}>
                                 Login

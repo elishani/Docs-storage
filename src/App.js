@@ -3,7 +3,6 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import DocsPage from './pages/DocsPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import jsonUsers from './data/users'
 
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -13,7 +12,6 @@ class App extends React.Component {
 
     this.state = {
       activeUser: null,
-      allUsers: jsonUsers
     }
 
     this.handleLogout = this.handleLogout.bind(this);
@@ -33,7 +31,7 @@ class App extends React.Component {
   }
 
   render() {
-  const { activeUser, allUsers } = this.state;
+  const { activeUser } = this.state;
 
     return (
       <Router>
@@ -42,7 +40,7 @@ class App extends React.Component {
             <HomePage activeUser={activeUser} handleLogout={this.handleLogout} />
           </Route>
           <Route exact path="/login">
-            <LoginPage allUsers={allUsers} handleLogin={this.handleLogin}/>
+            <LoginPage handleLogin={this.handleLogin}/>
           </Route>
           <Route exact path="/docs">
             <DocsPage activeUser={activeUser} handleLogout={this.handleLogout} />
