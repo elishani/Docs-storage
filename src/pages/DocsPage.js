@@ -1,39 +1,57 @@
 import React from 'react';
-import { Container } from 'react-bootstrap'
+import { Container, Button } from 'react-bootstrap'
 import DocsNavbar from '../components/DocsNavbar'
-import DocsSidebar from '../components/DocsSidebar'
+import DocTreebeard from '../components/DocTreebeard'
 import { Redirect } from 'react-router-dom';
 import './DocsPage.css'
+import NewPdfModal from '../components/NewPdfModal'
 
-class DocsPage extends React.Component {
+export default class DocsPage extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      showNewPdfModal: false
+    }
+
+    this.handleClose = this.handleClose.bind(this)
+    this.handleNewPdf = this.handleNewPdf.bind(this)
   }
 
+  handleClose(){
+    this.setState({
+      showNewPdfModal: false
+    })
+  }
+
+    handleNewPdf(newPdf){
+      this.props.handleNewPdf(newPdf)
+    }
+
+
   render() {
+    const { showNewPdfModal} = this.state
     const { activeUser, handleLogout } = this.props
     if (!activeUser) {
       return <Redirect to="/" />
     }
-    
+
     return (
       <div>
-      <DocsNavbar activeUser={activeUser} handleLogout={handleLogout} />
-      <Container>
-          <div className="docses-header">
-              <h1>{activeUser.fname}'s Documents storage</h1>
-              
+        <DocsNavbar activeUser={activeUser} handleLogout={handleLogout} />
+        <Container>
+          <div className="docs-header">
+            <h1>{activeUser.fname}'s Documents storage</h1>
+            <Button onCklick={() => {this.setState({showNewPdfModal: true})}}>Add PDF</Button> 
           </div>
-         
+          <div className="tree">
+            <DocTreebeard />
+          </div>
+        </Container>
 
-      </Container>
-      <DocsSidebar/>
-      
-
-  </div>
+        <NewPdfModal show={showNewPdfModal} hadleClose={this.hadleClose} handeNewPdf={this.handlePdf} />
+      </div>
     );
   }
 }
-
-export default DocsPage;

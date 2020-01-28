@@ -1,5 +1,9 @@
-.recipes-header {
+.docs-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.tree{
+    display: block;
+    width: 40%;
 }

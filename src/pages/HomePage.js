@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react'
 import { Jumbotron, Button } from 'react-bootstrap';
 
-class HomePage extends Component {
+export default class HomePage extends Component {
     constructor(props) {
         super(props);
     }
@@ -16,7 +16,7 @@ class HomePage extends Component {
                 <Jumbotron>
                     <h1>Documents storage</h1>
                     <p>
-                        <h3>One place for all your documents</h3>
+                       One place for all your documents
                     </p>
                     <p>
                         <Button variant="success" href="#/login">Login</Button>
@@ -27,4 +27,3 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
