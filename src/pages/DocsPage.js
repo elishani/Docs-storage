@@ -43,14 +43,14 @@ export default class DocsPage extends React.Component {
         <Container>
           <div className="docs-header">
             <h1>{activeUser.fname}'s Documents storage</h1>
-            <Button onCklick={() => {this.setState({showNewPdfModal: true})}}>Add PDF</Button> 
+            <Button onClick={() => {this.setState({showNewPdfModal: true})}}>Add PDF</Button> 
           </div>
           <div className="tree">
             <DocTreebeard />
           </div>
         </Container>
 
-        <NewPdfModal show={showNewPdfModal} hadleClose={this.hadleClose} handeNewPdf={this.handlePdf} />
+        <NewPdfModal show={showNewPdfModal} handleClose={this.handleClose} handleNewPdf={this.handleNewPdf} />
       </div>
     );
   }
