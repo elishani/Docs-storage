@@ -11,8 +11,8 @@ class LoginPage extends React.Component {
         super(props);
 
         this.state = {
-            email: "",
-            pwd: "",
+            email: "elishani50@gmail.com",
+            pwd: "123",
 
             showInvalidLoginError: false,  
             redirectToDocsPage: false
