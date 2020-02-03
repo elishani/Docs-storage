@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
 import { Treebeard } from 'react-treebeard';
 import Parse from 'parse';
-
+import  MenuModel  from '../model/MenuModel'
 export default class DocTreebreard extends Component {
 
     constructor(props) {
         super(props);
 
+        //this.state = {dataMenu:[]}
+        this.state = {menu:[]}
         this.onToggle = this.onToggle.bind(this);
     }
 
 
     async componentDidMount() {
         const folder = Parse.Object.extend('folder');
-        let query = new Parse.Query(folder);
-        let results = await query.find().then((results) => {
-            return results
-        });
-        this.setState({
-            data: results
-        })
-        console.log("After read folder api")
-        console.log(this.state.data)
-        alert(this.state.data)
+        const query = new Parse.Query(folder);
+        const results = await query.find()
+        const menu = results.map(parseMenu => new MenuModel(parseMenu))
+        this.setState({ menu})
     }
 
 
@@ -41,30 +37,21 @@ export default class DocTreebreard extends Component {
 
 
     render() {
-        console.log("Inside render")
-        //  console.log(this.state.results)
+        const { menu } = this.state
+        console.log(menu)
 
-    
-        let { data } = this.state;
-        // console.log(this.state.data)
-        // let data = {
-        //     name: "ראשי",
-        //     toggled: true,
-        //     children: []
-        // }
-        return <div>hhhh</div>;
-
-        // const { data } = this.state;
-        // console.log("kdlskdlsdk")
-        // for (let i = 0; i < data4menu.length; i++){
-        //     console.log(data4menu.get("name") + " " + data4menu.get("parent") + " " + data4menu.id )
-        // }
-
-        // return (
-        //     <Treebeard
-        //         data={data}
-        //         onToggle={this.onToggle}
-        //     />
-        // )
+        console.log(this.state)
+        let data = {
+            name: "ראשי",
+            toggled: true,
+            children: []
+        }
+       
+        return (
+            <Treebeard
+                data={data}
+                onToggle={this.onToggle}
+            />
+        )
     }
 }
