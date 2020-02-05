@@ -46,7 +46,7 @@ export default class DocsPage extends React.Component {
             <Button onClick={() => {this.setState({showNewPdfModal: true})}}>Add PDF</Button> 
           </div>
           <div className="tree">
-            <DocTreebeard />
+            <DocTreebeard activeUser={activeUser}/>
           </div>
         </Container>
 
