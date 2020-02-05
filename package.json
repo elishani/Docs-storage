@@ -1,6 +1,7 @@
 {
   "name": "docs-storage",
   "version": "0.1.0",
+  "homepage": "https://elishani.github.io/Docs-storage",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.8.3",
@@ -9,6 +10,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
+    "gh-pages": "^2.2.0",
     "parse": "^2.11.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
@@ -18,6 +20,8 @@
     "react-treebeard": "^3.2.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -88,7 +88,7 @@ export default class DocTreebreard extends Component {
     
         const pdfList = pdfFiles.map(pdfFile => 
             <div>
-                <a href={pdfFile.get("file")._url}>{pdfFile.get("name")}</a>
+                <a href={pdfFile.get("file")._url} target="_blank">{pdfFile.get("name")}</a>
             </div>
         )
 
