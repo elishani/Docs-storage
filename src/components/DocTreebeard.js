@@ -9,7 +9,7 @@ export default class DocTreebreard extends Component {
 
         this.state = { data: {}, pdfFiles: [] }
         this.onToggle = this.onToggle.bind(this);
-        this.getPdfFiles = this.getPdfFiles.bind(this);
+        // this.getPdfFiles = this.getPdfFiles.bind(this);
     }
 
 
@@ -47,22 +47,22 @@ export default class DocTreebreard extends Component {
         this.setState({ data });
     }
 
-    async getPdfFiles(parent) {
-        const folderTable = Parse.Object.extend('folder');
-        const queryFolder = new Parse.Query(folderTable);
-        const folder = await queryFolder.get(parent);
+    // async getPdfFiles(parent) {
+    //     const folderTable = Parse.Object.extend('folder');
+    //     const queryFolder = new Parse.Query(folderTable);
+    //     const folder = await queryFolder.get(parent);
 
-        const pdfStore = Parse.Object.extend('pdfStore');
-        const query = new Parse.Query(pdfStore);
-        query.equalTo("parent", folder);
+    //     const pdfStore = Parse.Object.extend('pdfStore');
+    //     const query = new Parse.Query(pdfStore);
+    //     query.equalTo("parent", folder);
 
-        const pdfFiles = await query.find();
-        this.setState({
-            pdfFiles: pdfFiles
-        })
+    //     const pdfFiles = await query.find();
+    //     this.setState({
+    //         pdfFiles: pdfFiles
+    //     })
 
-        console.log(pdfFiles);
-    }
+    //     console.log(pdfFiles);
+    // }
 
     onToggle(node, toggled) {
         console.log(node);
@@ -75,7 +75,7 @@ export default class DocTreebreard extends Component {
             node.toggled = toggled;
 
         } else {
-            this.getPdfFiles(node.id)
+            this.props.handlePdf(node.id)
         }
         this.setState(() => ({ cursor: node, data: Object.assign({}, data) }));
     }
@@ -98,7 +98,7 @@ export default class DocTreebreard extends Component {
                     data={data}
                     onToggle={this.onToggle}
                 />
-                {pdfList}
+               
             </div>
         )
     }

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, Row, Col, Image } from 'react-bootstrap';
 
-export default class NewPdfModal extends Component {
+export default class NewNodeModal extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             name: "",
-            file: undefined
+            filePdf: {
+                file: undefined,
+                URL: undefined
+            }
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -16,20 +19,21 @@ export default class NewPdfModal extends Component {
     }
 
     handleFileChange(event) {
-        let newFile;
+        let newFilePdf;
         if (event.target.files[0]) {
-            newFile = {
+            newFilePdf = {
                 file: event.target.files[0],
+                URL: URL.createObjectURL(event.target.files[0])
             }
         } else {
-            newFile = {
-                name: "",
+            newFilePdf = {
                 file: undefined,
+                URL: undefined
             }
         }
 
 
-        this.setState({ file: newFile });
+        this.setState({filePdf: newFilePdf});        
     }
 
     handleInputChange(event) {
@@ -43,39 +47,43 @@ export default class NewPdfModal extends Component {
     }
 
     createPdf() {
-        const { name, parent, file } = this.state;
-        const newPdf = { parent, name, file };
+        const { name, filePdf } = this.state;
+        const newPdf = { name, pdf: filePdf.URL};
         this.props.handleNewPdf(newPdf);
         this.props.handleClose();
         this.setState({
             name: "",
-            file: undefined
+            pdf: ""
         })
     }
 
     render() {
         const { show, handleClose } = this.props;
-        const { name, file } = this.state;
-        return (
+        const { name,  filePdf } = this.state;
 
+        return (
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New PDF</Modal.Title>
+                    <Modal.Title>New Node</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Pdf name</Form.Label>
+                            <Form.Label>Name</Form.Label>
                             <Form.Control name="name" value={name}
-                                type="text" placeholder="Enter pdf name" onChange={this.handleInputChange} />
+                                type="text" placeholder="Enter PDF Name" onChange={this.handleInputChange} />
                         </Form.Group>
 
                         <Form.Group>
-                            <Form.Label>Pdf page</Form.Label>
+                            <Form.Label>Pdf URL</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control type="file" onChange={this.handleFileChange} />
+                            <Form.Control type="file" onChange={this.handleFileChange} />
                                 </Col>
+                                <Col>
+                                    <Image src={filePdf.URL} fluid/>
+                                </Col>
+
                             </Row>
                         </Form.Group>
                     </Form>
